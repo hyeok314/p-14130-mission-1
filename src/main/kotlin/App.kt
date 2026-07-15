@@ -36,6 +36,31 @@ class App {
                 }
             }
 
+            else if(input.startsWith("수정?id=")) {
+                val id = input.split('=')[1].toInt()
+
+                val target = wiseSayings.find {it.id == id}
+
+                if (target == null) {
+                    println("${id}번 명언은 존재하지 않습니다.")
+                } else {
+                    println("명언(기존): ${target.content}")
+                    print("명언: ")
+                    val content = readlnOrNull()!!.trim()
+                    println("작가(기존): ${target.author}")
+                    print("작가: ")
+                    val author = readlnOrNull()!!.trim()
+
+                    val udpateTarget = target.copy(
+                        content = content,
+                        author = author
+                    )
+
+                    wiseSayings[id - 1] = udpateTarget
+                    println("${id}번 명언이 수정되었습니다.")
+                }
+            }
+
             else if(input == "목록") {
                 println("번호 / 작가 / 명언")
                 println("-------------------------")
